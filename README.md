@@ -1,24 +1,70 @@
-# README
+## Installation
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Required
+- Ruby version 3 (maybe from 2.7 works but not less)
+- PostgreSQL with no password required in localhost ( I had version 13)
+- a working pg gem (might need to `gem install pg -- --with-pg-config='your specific path'`)
 
-Things you may want to cover:
+### Make it work
+After cloning
+- `bundle install`
+- `rails db:setup`
+- `rails db:migrate`
+- `rails db:test:prepare`
+- `rails db:seed`
 
-* Ruby version
+then
+- `rspec` for launching the test
+- `rails s` for the server
 
-* System dependencies
+## Usage
 
-* Configuration
+| verb       | Uri | actions |
+| ----------- | --------- |----------- |
+| GET      | /pokemons | index
+| POST      | /pokemons | create
+| GET      | /pokemons/:id | show
+| PATCH      | /pokemons/:id | update
+| PUT      | /pokemons/:id | update
+| DELETE      | /pokemons/:id | destroy
 
-* Database creation
+## Create/update
 
-* Database initialization
+Pokemon attributes have been normalized and must follow certain rules. A Payload for creation is as such :
+```json
+{
+    "number": (strictly positive integer),
+    "name": (string),
+    "type1": (allowed type string),
+    "type2": (allowed type string or nil),
+    "total": (strictly positive integer),
+    "hp": (strictly positive integer),
+    "attack": (strictly positive integer),
+    "defense": (strictly positive integer),
+    "sp_attack": (strictly positive integer),
+    "sp_defence": (strictly positive integer),
+    "speed": (strictly positive integer),
+    "generation": (strictly positive integer),
+    "legendary": (Boolean),
+}
+```
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Allowed pokemon types are:
+- Normal 
+- Fire 
+- Water 
+- Grass 
+- Flying 
+- Fighting 
+- Poison 
+- Electric 
+- Ground 
+- Rock 
+- Psychic 
+- Ice 
+- Bug 
+- Ghost 
+- Steel 
+- Dragon 
+- Dark 
+- Fairy
