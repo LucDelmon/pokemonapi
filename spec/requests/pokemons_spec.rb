@@ -26,12 +26,54 @@ RSpec.describe '/pokemons', type: :request do
   let(:valid_pokemon) { Pokemon.create!(valid_attributes) }
 
   describe 'GET /index' do
-    before { valid_pokemon }
-
     it 'renders a successful response' do
+      valid_pokemon
       get(pokemons_url, as: :json)
       expect(response).to have_http_status(200)
       expect(JSON.parse(response.body).first['id']).to eq valid_pokemon.id
+    end
+
+    describe 'paginations' do
+      let(:pokemons) do
+        [
+          Pokemon.create!(valid_attributes),
+          Pokemon.create!(valid_attributes),
+          Pokemon.create!(valid_attributes),
+        ]
+      end
+
+      let(:request) do
+        get(
+          pokemons_url,
+          params: { per_page: per_page, page: page, format: :json},
+        )
+      end
+
+      before { pokemons }
+
+      context 'when looking at the first page with 2 elements per page' do
+        let(:per_page) { 2 }
+        let(:page) { 1 }
+
+        it 'return the first two elements' do
+          request
+          expect(response).to have_http_status(200)
+          expect(JSON.parse(response.body).count).to eq 2
+          expect(JSON.parse(response.body).pluck('id')).to eq [pokemons.first.id, pokemons.second.id]
+        end
+      end
+
+      context 'when looking at the second page with 2 elements per page' do
+        let(:per_page) { 2 }
+        let(:page) { 2 }
+
+        it 'return the last element' do
+          request
+          expect(response).to have_http_status(200)
+          expect(JSON.parse(response.body).count).to eq 1
+          expect(JSON.parse(response.body).first['id']).to eq pokemons.last.id
+        end
+      end
     end
   end
 

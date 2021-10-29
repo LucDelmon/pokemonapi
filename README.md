@@ -28,7 +28,18 @@ then
 | PUT      | /pokemons/:id | update
 | DELETE      | /pokemons/:id | destroy
 
-## Create/update
+### Index
+
+Index is paginated. 25 elements per page by default.
+
+You can change page or per page count by adding arguments to the GET request.
+
+- `?page=2&per_page=5`  
+
+Response headers also contained link to previous, next and last page.
+
+
+### Create/update
 
 Pokemon attributes have been normalized and must follow certain rules. A Payload for creation is as such :
 ```json
