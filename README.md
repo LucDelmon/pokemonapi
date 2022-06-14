@@ -2,7 +2,8 @@
 
 ### Required
 - Ruby version 3 (maybe from 2.7 works but not less)
-- PostgreSQL with no password required in localhost ( I had version 13)
+- PostgreSQL with no password required in localhost ( I had version 13) but with user pokemonapi created.
+- `sudo -u postgres createuser --interactive` can help
 - a working pg gem (might need to `gem install pg -- --with-pg-config='your specific path'`)
 
 ### Make it work
@@ -19,14 +20,14 @@ then
 
 ## Usage
 
-| verb       | Uri | actions |
-| ----------- | --------- |----------- |
-| GET      | /pokemons | index
-| POST      | /pokemons | create
-| GET      | /pokemons/:id | show
-| PATCH      | /pokemons/:id | update
-| PUT      | /pokemons/:id | update
-| DELETE      | /pokemons/:id | destroy
+| verb   | Uri           | actions |
+|--------|---------------|---------|
+| GET    | /pokemons     | index   |
+| POST   | /pokemons     | create  |
+| GET    | /pokemons/:id | show    |
+| PATCH  | /pokemons/:id | update  |
+| PUT    | /pokemons/:id | update  |
+| DELETE | /pokemons/:id | destroy |
 
 ### Index
 
