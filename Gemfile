@@ -35,6 +35,7 @@ group :development, :test do
 
   gem 'database_cleaner-active_record'
   gem 'rspec-rails'
+  gem 'rubocop'
   gem 'shoulda-matchers'
 end
 
